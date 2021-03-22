@@ -15,6 +15,8 @@ Repeat these steps for scenes 01–15. When you are done, you should have sixtee
 
 Now open res://Maze/Maze.gd. Replace the contents of the script with the following:
 ```
+extends Node2D
+
 const N = 1
 const E = 2
 const S = 4
@@ -44,13 +46,14 @@ var tiles = [
 ]
 
 
-var tile_size = 64  # tile size (in pixels)
+var tile = 64  # tile size (in pixels)
 var width = 20  # width of map (in tiles)
 var height = 12  # height of map (in tiles)
+var tile_size = Vector2.ZERO
 
 func _ready():
 	randomize()
-	tile_size = Vector2(tile_size,tile_size)
+	tile_size = Vector2(tile,tile)
 	make_maze()
 	
 func check_neighbors(cell, unvisited):
@@ -90,7 +93,7 @@ func make_maze():
 	for x in range(width):
 		for y in range(height):
 			var t = tiles[map[x][y]].instance()
-			t.position = Vector2(x,y)*tile_size
+			t.position = Vector2(x,y)*tile
 			t.name = "Tile_" + str(x) + "_" + str(y)
 			add_child(t)
 ```
